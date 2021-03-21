@@ -1,0 +1,26 @@
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_notes
+
+note over browser:
+browser sends new note to server
+so the server updates it's notes
+end note
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+server-->browser: HTML-code
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: main.css
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+server-->browser: main.js
+
+note over browser:
+browser starts executing js-code
+that requests JSON data from server 
+end note
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: [{"content":"hi","date":"2021-03-21T13:29:26.576Z"}, ...]
+
+note over browser:
+browser executes the event handler
+that renders notes to display
+end note

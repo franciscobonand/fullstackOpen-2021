@@ -1,0 +1,8 @@
+browser->server:  https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+server-->browser: {"message":"note created"}
+
+note over browser:
+browser executes the event handler
+that renders notes to display
+without the need to reload the page
+end note
