@@ -25,11 +25,25 @@ const App = () => {
     temp[elem] += 1
     return temp
   }
+  const displayMostVoted = () => {
+    var max = votes[0];
+    var maxIndex = 0;
+
+    for (var i = 1; i < votes.length; i++) {
+        if (votes[i] > max) {
+            maxIndex = i;
+            max = votes[i];
+        }
+    }
+
+    return anecdotes[maxIndex];
+}
 
   console.log()
   return (
     <>
-      <h2>{anecdotes[selected]}</h2>
+      <h1>Anectode of the day</h1>
+      <div>{anecdotes[selected]}</div>
       <div>has {votes[selected]} votes</div>
       <Button
         handleClick={() => setVotes(addVote(selected))}
@@ -39,6 +53,8 @@ const App = () => {
         handleClick={() => setSelected(random(anecdotes.length))}
         text={"Next anecdote"}
       />
+      <h1>Anectode with most votes</h1>
+      {displayMostVoted()}
     </>
   )
 }
