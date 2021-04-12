@@ -12,6 +12,11 @@ const create = async (newObj) => {
     return (await response).data
 }
 
-const numberClient = {getAll, create}
+const delPers = async (id) => {
+    const response = axios.delete(`${url}/${id}`)
+    return (await response).data
+}
+
+const numberClient = {getAll, create, delPers}
 
 export default numberClient
