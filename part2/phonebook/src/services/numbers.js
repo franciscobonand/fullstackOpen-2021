@@ -17,6 +17,11 @@ const delPers = async (id) => {
     return (await response).data
 }
 
-const numberClient = {getAll, create, delPers}
+const updatePers = async (id, newObj) => {
+    const response = axios.put(`${url}/${id}`, newObj)
+    return (await response).data
+}
+
+const numberClient = {getAll, create, delPers, updatePers}
 
 export default numberClient

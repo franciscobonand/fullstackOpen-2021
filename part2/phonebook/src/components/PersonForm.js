@@ -3,28 +3,34 @@ import PersonName from './PersonName'
 import PersonPhone from './PersonPhone'
 import numberClient from '../services/numbers'
 
+const samePersMsg = "is already added to the phonebook," +
+                    " replace the old number with a new one?"
+
 const PersonForm = ({persons, setPersons}) => {
     const [ newName, setNewName ] = useState('')
     const [ newPhone, setNewPhone ] = useState('')
   
     const handleFormSubmission = (event) => {
-      event.preventDefault()
-      if(persons.find(pers => pers.name === newName)) {
-        alert(`${newName} is already added to phonebook`)
-        return
-      }
-  
-      const newPers = {
-        name: newName,
-        number: newPhone
-      }
+        event.preventDefault()
+        const existentPers = persons.find(pers => pers.name === newName)
+        const newPers = {
+          name: newName,
+          number: newPhone
+        }
 
-      numberClient.create(newPers)
-      .then(returnedPers => {
-        setPersons(persons.concat(returnedPers))
+        if(!existentPers) {
+            numberClient.create(newPers)
+            .then(returnedPers => {
+                setPersons(persons.concat(returnedPers))
+            })
+        } else if (window.confirm(`${existentPers.name} ${samePersMsg}`)) {
+            numberClient.updatePers(existentPers.id, newPers)
+            .then(updated => {
+                setPersons(persons.map(p => p.name !== updated.name ? p : updated))
+            })
+        }
         setNewName('')
         setNewPhone('')
-      })
     }
   
     return (
